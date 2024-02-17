@@ -20,6 +20,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Install Docker
+      run: sudo apt-get update && sudo apt-get install -y docker.io
+
     - name: Build Docker image for react-test
       run: docker build -t react-test -f ./client/Dockerfile.dev ./client
 
@@ -32,3 +35,14 @@ jobs:
         docker build -t multi-nginx ./nginx
         docker build -t multi-server ./server
         docker build -t multi-worker ./worker
+
+    - name: Login to Docker Hub
+      run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+    - name: Push Docker images to Docker Hub
+      run: |
+        docker push multi-client
+        docker push multi-nginx
+        docker push multi-server
+        docker push multi-worker
+
