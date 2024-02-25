@@ -50,6 +50,4 @@ jobs:
         existing_bucket_name: elasticbeanstalk-eu-north-1-211125786792
         bucket_path: docker-multi
         region: eu-north-1
-        version_label: ${{ github.sha }}
-        deployment_package: deploy.zip
 
